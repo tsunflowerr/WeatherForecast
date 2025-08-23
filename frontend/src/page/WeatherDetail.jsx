@@ -57,7 +57,7 @@ const WeatherDetails = () => {
 
     return (
           <div className="iteam-center justify-between h-screen w-screen font-sans">
-            <div className="sticky top-0 md:sticky md:top-0 flex items-center justify-between h-40 bg-blue-50">
+            <div className="sticky top-0 flex items-center justify-between h-40 bg-blue-50">
               <div className="flex items-center gap-2 cursor-pointer ml-4 md:ml-40" onClick={() => navigate("/")}>
                 <Sun className="w-12 h-12 md:w-20 md:h-20 text-amber-500" />
                 <span className="font-extrabold text-lg md:text-2xl bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent tracking-wide">Weather Forecast</span>
