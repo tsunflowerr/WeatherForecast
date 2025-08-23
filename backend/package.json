@@ -1,11 +1,14 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
-  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "vercel-build": "vite build"
   },
   "keywords": [],
   "author": "",
