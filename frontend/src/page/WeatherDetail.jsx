@@ -68,7 +68,7 @@ const WeatherDetails = () => {
                     <div className="px-5 py-3">
                       <span className="text-2xl font-bold text-gray-700 font-sans">Current weather</span> 
                     </div>
-                    <div className="flex-grow flex items-center ">
+                    <div className="flex-grow flex items-center px-12 gap-10">
                       <img src={weatherData.current.icon} alt={weatherData.current.condition} className="w-32 h-32 ml-5"/>
                       <div className="font-medium flex-col ml-15 flex justify-center">
                         <h2 className="text-3xl font-bold text-gray-800">{weatherData.current.city}, {weatherData.current.country}</h2>

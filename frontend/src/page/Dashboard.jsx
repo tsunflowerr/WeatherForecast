@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sun } from "lucide-react";
 import { useState } from "react";
@@ -8,6 +8,33 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [searchCity, setSearchCity] = useState("");
     const [error, setError] = useState(null);
+    const [suggestions, setSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+
+    useEffect(() => {
+        const fetchSuggestions = async () => {
+            if(searchCity.trim().length > 2) {
+                try {
+                    const response = await axios.get(`http://localhost:4000/api/search?q=${searchCity}`);
+                    setSuggestions(response.data);
+                    setShowSuggestions(true);
+                }
+                catch(err) {
+                    console.error("Error fetching suggestions", err);
+                    setSuggestions([]);
+                    setShowSuggestions(false);
+                }
+            }
+            else {
+                setSuggestions([]);
+                setShowSuggestions(false);
+            }
+        };
+        const timeoutId = setTimeout(
+            fetchSuggestions, 300);
+        return () => clearTimeout(timeoutId);
+    }, [searchCity]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if(searchCity.trim() !== "") {
@@ -26,6 +53,12 @@ const Dashboard = () => {
         }
      }
     }
+
+    const handleSuggestionClick = (city) => {
+        setSearchCity(city);
+        setShowSuggestions(false);
+        navigate(`/weather/${city}`);
+    };
     return (
     <header className="h-screen w-screen font-sans">
       <div className="flex items-center justify-between h-40 bg-blue-50">
@@ -35,14 +68,35 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-10">
-        <div className=" flex items-center justify-center gap-2">
-          <input type="text" value={searchCity} onChange={(e) => setSearchCity(e.target.value)} placeholder="Nhập tên thành phố...."
-          className="text-gray-700 text-xl font-sans w-128 h-16 border border-gray-700 rounded-3xl px-3 py-2"></input>
-          <button type="submit" className="bg-blue-500 h-16 w-30 text-xl text-white rounded-3xl ">Tìm kiếm</button>
-        </div>
-        {error && <p className="text-red-500 text-center mt-4">{error}</p>}
-      </form>
+     <form onSubmit={handleSubmit} className="mt-10">
+         <div className="flex items-center justify-center gap-2">
+            {/* Bọc input    + suggestions */}
+            <div className="relative">
+                <input
+                type="text"
+                value={searchCity}
+                onChange={(e) => setSearchCity(e.target.value)}
+                onFocus={() => setShowSuggestions(true)}
+                placeholder="Nhập tên thành phố...."
+                className="text-gray-700 text-xl font-sans w-128 h-16 border border-gray-700 rounded-3xl px-3 py-2"/>
+                {showSuggestions && suggestions.length > 0 && (
+                <div className="absolute top-full left-0 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 mt-1">
+                    {suggestions.map((suggestion, index) => (
+                    <div
+                        key={index}
+                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-gray-700"
+                        onClick={() => handleSuggestionClick(suggestion.name)}>
+                        {suggestion.name}, {suggestion.country}
+                    </div>
+                    ))}
+                </div>
+                )}
+            </div>
+
+            <button type="submit" className="bg-blue-500 h-16 w-30 text-xl text-white rounded-3xl">Tìm kiếm</button>
+         </div>
+            {error && <p className="text-red-500 text-center mt-4">{error}</p>}
+        </form>
     </header>
     );
 }
