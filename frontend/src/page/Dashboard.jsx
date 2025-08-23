@@ -15,7 +15,7 @@ const Dashboard = () => {
         const fetchSuggestions = async () => {
             if(searchCity.trim().length > 2) {
                 try {
-                    const response = await axios.get(`http://localhost:4000/api/search?q=${searchCity}`);
+                    const response = await axios.get(`https://weatherforecast-backend-k0c3.onrender.com/api/search?q=${searchCity}`);
                     setSuggestions(response.data);
                     setShowSuggestions(true);
                 }
@@ -39,7 +39,7 @@ const Dashboard = () => {
         e.preventDefault();
         if(searchCity.trim() !== "") {
             try {
-                const response = await axios.get(`http://localhost:4000/api/weather/${searchCity}`);
+                const response = await axios.get(`https://weatherforecast-backend-k0c3.onrender.com/api/weather/${searchCity}`);
                 if(response.data) {
                     navigate(`/weather/${searchCity}`);
                     setError(null);

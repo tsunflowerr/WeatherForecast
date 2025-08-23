@@ -14,7 +14,7 @@ const WeatherDetails = () => {
     useEffect(() => {
         const fetchWeather = async () => {
         try {
-        const response = await axios.get(`http://localhost:4000/api/weather/${city}`);
+        const response = await axios.get(`https://weatherforecast-backend-k0c3.onrender.com/api/weather/${city}`);
         const data = response.data;
         setWeatherData({
             current: {
