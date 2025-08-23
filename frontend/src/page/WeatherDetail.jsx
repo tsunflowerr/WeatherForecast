@@ -63,7 +63,7 @@ const WeatherDetails = () => {
                 <p className="text-red-500 text-center mt-6">{error}</p>
               )}
               {weatherData && (
-                <div className="h-screen bg-gray-50 flex justify-center ">
+                <div className="h-screen bg-gray-50 flex flex-col items-center ">
                   <div className="bg-white h-80 w-160 border-gray-200 border rounded-4xl mt-10 flex flex-col">
                     <div className="px-5 py-3">
                       <span className="text-2xl font-bold text-gray-700 font-sans">Current weather</span> 
@@ -79,8 +79,32 @@ const WeatherDetails = () => {
                       </div>
                     </div>
                   </div>
+
+                  <div className="bg-white h-60 w-360 border-gray-200 border rounded-4xl mt-5 flex flex-col mb-10">
+                    <div className="px-5 py-3">
+                      <span className="text-2xl font-bold text-gray-700 font-sans ">3-Day Forecast</span>
+                    </div>
+                    <div className="flex-grow flex items-center justify-around gap-10">
+                      {weatherData.forecast.map((day) => (
+                       <div className="flex flex-row items-center gap-8 w-100 h-40 bg-gray-50 border border-gray-200 rounded-3xl mb-4 p-4" key={day.date}>
+                        <div key={day.date} className="flex flex-col items-center">
+                          <p className="text-md text-gray-600 font-medium">{new Date(day.date).toLocaleDateString()}</p>
+                          <img src={day.icon} alt={day.condition} className="w-20 h-20"/>
+                          <p className="text-lg text-gray-800 font-semibold text-shadow-md ">{day.condition}</p>
+                        </div>
+                        <div className="text-left gap 2 flex flex-col">
+                          <p className="font-semibold text-gray-700">Max: {day.maxtemp_c}°C</p>
+                          <p className="font-semibold text-gray-700">Min: {day.mintemp_c}°C</p>
+                          <p className="font-semibold text-gray-700">Avg: {day.avgtemp_c}°C</p>
+                          <p className="font-semibold text-gray-700">Humidity: {day.avghumidity}%</p>
+                          <p className="font-semibold text-gray-700">Wind: {day.wind_kph} kph</p>
+                          <p className="font-semibold text-gray-700">Chance of rain: {day.daily_chance_of_rain}%</p>
+                        </div>
+                      </div>
+                      ))}
+                      </div>
+                  </div>
                 </div>
-                
               )}
           </div>
 

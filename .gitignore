@@ -1,4 +1,4 @@
-# Node.js
+# Node.js/node_modules
 node_modules/
 .env
 npm-debug.log
@@ -12,6 +12,7 @@ logs/
 # OS
 .DS_Store
 Thumbs.db
+*.env
 
 # Build output
 dist/
@@ -68,3 +69,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.eslintcache
+.parcel-cache
+.next/
+.nuxt/
