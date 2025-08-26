@@ -1,5 +1,3 @@
-<img width="1920" height="1020" alt="{A39E0CA9-EE87-4B4C-9530-CA0F53F98FF4}" src="https://github.com/user-attachments/assets/187ad376-c75b-4814-87a9-2172524ed8ef" /># WeatherForecast
-
 ## Overview
 WeatherForecast is a modern web application that allows users to view current weather conditions and detailed forecasts for any location. It features a clean, responsive interface and real-time weather data integration.
 
